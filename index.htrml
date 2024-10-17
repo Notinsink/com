@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield Currency Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Currency Tracker</h1>
+    <div id="ngn-rate"></div>
+    <div id="eurodollar-rate"></div>
+    <div id="petroleum-price"></div>
+    <div id="bitcoin-price"></div>
+    <div id="ethereum-price"></div>
+    <script src="script.js"></script>
+</body>
+</html>
