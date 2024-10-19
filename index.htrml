@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Expense Tracker</title>
 </head>
+
 <body>
     <div class="container">
-        <h1>Expense Tracker</h1>
+        <header>
+            <h1>Expense Tracker</h1>
+        </header>
         <form id="expense-form">
             <div class="input-group">
                 <input type="text" id="expense-name" placeholder="Expense Name" required>
@@ -16,9 +20,12 @@
             </div>
             <button type="submit">Add Expense</button>
         </form>
-        <h2>Total Expenses: <span id="total-expense">₦0</span></h2>
+        <section class="total-expenses">
+            <h2>Total Expenses: <span id="total-expense">₦0.00</span></h2>
+        </section>
         <ul id="expense-list"></ul>
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>
