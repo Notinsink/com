@@ -1,35 +1,48 @@
-async function fetchNGNRate() {
-    const response = await fetch('https://v6.exchangerate-api.com/v6/b1e2c86382d298417a2fe07a/latest/USD');
-    const data = await response.json();
-    const ngnRate = data.conversion_rates.NGN; // Get the rate for Nigerian Naira
-    document.getElementById('ngn-rate').innerHTML = `Exchange Rate (USD to NGN): ₦${ngnRate}`;
-}
+const expenseForm = document.getElementById('expense-form');
+const expenseList = document.getElementById('expense-list');
+const totalExpense = document.getElementById('total-expense');
 
-async function fetchEuroDollarRate() {
-    const response = await fetch('https://openexchangerates.org/api/latest.json?app_id=07a5181c95051388136f515adea1ff2c'); // Your Open Exchange Rates API key
-    const data = await response.json();
-    const euroDollarRate = data.rates.EUR; // Get the Euro to USD exchange rate
-    document.getElementById('eurodollar-rate').innerHTML = `Eurodollar Rate: $${euroDollarRate}`;
-}
+let expenses = [];
+let total = 0;
 
-async function fetchPetroleumPrice() {
-    const response = await fetch('https://api.eia.gov/series/?api_key=983ddd66f7c429b06fa01f1f7bc7bc96&series_id=PET.EER_EPM0_PTE_NUS_DMC');
-    const data = await response.json();
-    const petroleumPrice = data.series[0].data[0][1]; // Get the latest petroleum price
-    document.getElementById('petroleum-price').innerHTML = `Crude Oil Price: $${petroleumPrice}`;
-}
+// Add event listener to the form
+expenseForm.addEventListener('submit', (event) => {
+    event.preventDefault(); // Prevent form submission
 
-async function fetchCryptoPrices() {
-    const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd');
-    const data = await response.json();
-    const bitcoinPrice = data.bitcoin.usd; // Get Bitcoin price in USD
-    const ethereumPrice = data.ethereum.usd; // Get Ethereum price in USD
-    document.getElementById('bitcoin-price').innerHTML = `Bitcoin Price: $${bitcoinPrice}`;
-    document.getElementById('ethereum-price').innerHTML = `Ethereum Price: $${ethereumPrice}`;
-}
+    const expenseName = document.getElementById('expense-name').value;
+    const expenseAmount = parseFloat(document.getElementById('expense-amount').value);
 
-// Call the functions to fetch and display rates
-fetchNGNRate();
-fetchEuroDollarRate();
-fetchPetroleumPrice();
-fetchCryptoPrices();
+    // Create an expense object
+    const expense = {
+        name: expenseName,
+        amount: expenseAmount
+    };
+
+    // Add expense to the array
+    expenses.push(expense);
+    
+    // Update total expenses
+    total += expenseAmount;
+    
+    // Render expenses
+    renderExpenses();
+
+    // Clear form fields
+    expenseForm.reset();
+});
+
+// Function to render expenses
+function renderExpenses() {
+    // Clear the current list
+    expenseList.innerHTML = '';
+
+    // Render each expense
+    expenses.forEach((expense, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `${expense.name}: <span>₦${expense.amount.toFixed(2)}</span>`;
+        expenseList.appendChild(li);
+    });
+
+    // Update total expenses
+    totalExpense.textContent = `₦${total.toFixed(2)}`;
+}
